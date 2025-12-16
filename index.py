@@ -16,7 +16,7 @@ class Employee:
         return '{} {}'.format(self.first, self.last)
 
     def apply_rasie(self):
-        self.pay = int(self.pay) * Employee.raise_amt
+        self.pay = int(self.pay) * self.raise_amt # diff: Employee.raise_amt
     
     @classmethod
     def set_raise_amt(cls, amount): # I don't think it is good practice!!
@@ -33,9 +33,50 @@ class Employee:
             return False
         return True
 
-import datetime
-my_day = datetime.date(2025, 12, 15)
-print(Employee.is_workday(my_day))
+class Developer(Employee):
+    raise_amt = 2.0
+    
+    def __init__(self, first, last, pay, lang):
+        super().__init__(first, last, pay)
+        self.lang = lang
+
+# inherit
+# print(help(Developer))
+
+class Manager(Employee):
+    
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+
+
+
+dev_1 = Developer('Coco', 'Nut', 50000, 'Python')
+dev_2 = Employee('Cococo', 'NutNut', 50000)
+
+print(dev_1.email)
+print(dev_1.lang)
+
+
+# print(dev_1.pay) # 5000
+# dev_1.apply_rasie()
+# print(dev_1.pay) # 100000.0
+
+# print(dev_2.pay) # 5000
+# dev_2.apply_rasie()
+# print(dev_2.pay) # 60000.0
+
+
+
+
+
+
+# import datetime
+# my_day = datetime.date(2025, 12, 15)
+# print(Employee.is_workday(my_day))
 
 # emp_1 = Employee('Judy', 'Fox', 300000)
 # emp_2 = Employee('San', 'Diego', 250000)
