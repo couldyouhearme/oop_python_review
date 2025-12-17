@@ -52,13 +52,46 @@ class Manager(Employee):
         else:
             self.employees = employees
 
+    def add_emp(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
+    
+    def remove_emp(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
+    
+    def print_emps(self):
+        for emp in self.employees:
+            print('***', emp.fullname(), '***')
+
+# lib
+class HTTPException(Exception):
+    pass
+
+class BadRequest(HTTPException):
+    pass
 
 
-dev_1 = Developer('Coco', 'Nut', 50000, 'Python')
-dev_2 = Employee('Cococo', 'NutNut', 50000)
+# dev_1 = Developer('Coco', 'Nut', 60000, 'Python')
+# dev_2 = Employee('Soy', 'Milk', 50000)
+# mgr_1 = Manager('Tofo', 'Soup', 30000, [dev_1])
 
-print(dev_1.email)
-print(dev_1.lang)
+# print(isinstance(mgr_1, Manager)) 
+# print(isinstance(mgr_1, Employee))
+# print(isinstance(mgr_1, Developer))
+
+# print(issubclass(Developer, Employee))
+# print(issubclass(Developer, Manager))
+
+# print(dev_1.email)
+# print(dev_1.lang)
+
+# print(mgr_1.email)
+# mgr_1.print_emps()
+# mgr_1.add_emp(dev_2)
+# mgr_1.print_emps()
+# mgr_1.remove_emp(dev_1)
+# mgr_1.print_emps()
 
 
 # print(dev_1.pay) # 5000
@@ -68,11 +101,6 @@ print(dev_1.lang)
 # print(dev_2.pay) # 5000
 # dev_2.apply_rasie()
 # print(dev_2.pay) # 60000.0
-
-
-
-
-
 
 # import datetime
 # my_day = datetime.date(2025, 12, 15)
