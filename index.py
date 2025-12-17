@@ -8,12 +8,29 @@ class Employee:
         self.first = first
         self.last = last
         self.pay = pay
-        self.email = self.first + '.' + self.last + '@company.com'
+        # self.email = self.first + '.' + self.last + '@company.com' # static at init
         
         Employee.num_of_employees += 1
 
+    @property
     def fullname(self):
         return '{} {}'.format(self.first, self.last)
+    
+    @fullname.setter
+    def fullname(self, name):
+        first, last = name.split(' ')
+        self.first = first
+        self.last = last 
+
+    @fullname.deleter
+    def fullname(self):
+        print('Delete name!!!')
+        self.first = None
+        self.last = None
+    
+    @property
+    def email(self):
+        return '{}.{}@company.com'.format(self.first, self.last)
 
     def apply_rasie(self):
         self.pay = int(self.pay) * self.raise_amt # diff: Employee.raise_amt
@@ -24,13 +41,13 @@ class Employee:
         return "Employee('{}', '{}', '{}')".format(self.first, self.last, self.pay)
 
     def __str__(self): # str format
-        return '{} - {}'.format(self.fullname(), self.email)
+        return '{} - {}'.format(self.fullname, self.email)
     
     def __add__(self, other):
         return self.pay + other.pay
     
     def __len__(self):
-        return len(self.fullname())
+        return len(self.fullname)
 
     @classmethod
     def set_raise_amt(cls, amount): # I don't think it is good practice!!
@@ -76,7 +93,7 @@ class Manager(Employee):
     
     def print_emps(self):
         for emp in self.employees:
-            print('***', emp.fullname(), '***')
+            print('***', emp.fullname, '***')
 
 # lib
 class HTTPException(Exception):
@@ -84,6 +101,19 @@ class HTTPException(Exception):
 
 class BadRequest(HTTPException):
     pass
+
+# setter; deleter
+# user_1 = Employee('Tom', 'Cat', 100)
+# user_1.fullname = 'Jerry Mounse'
+# print(user_1) # Jerry Mounse - Jerry.Mounse@company.com
+# del user_1.fullname # Delete name!!!
+# print(user_1) # None None - None.None@company.com
+
+# @property
+# user_1 = Employee('Tom', 'Cat', 100)
+# print(user_1.email()) # TypeError with @property
+# print(user_1.email) # Tom.Cat@company.com 
+# print(user_1.fullname) # Tom Cat
 
 # __len__ special method
 # print(len('test')) # 4
