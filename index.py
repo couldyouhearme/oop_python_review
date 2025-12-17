@@ -18,6 +18,20 @@ class Employee:
     def apply_rasie(self):
         self.pay = int(self.pay) * self.raise_amt # diff: Employee.raise_amt
     
+    # special methods
+    # refer to class date source code
+    def __repr__(self): # conversions to str
+        return "Employee('{}', '{}', '{}')".format(self.first, self.last, self.pay)
+
+    def __str__(self): # str format
+        return '{} - {}'.format(self.fullname(), self.email)
+    
+    def __add__(self, other):
+        return self.pay + other.pay
+    
+    def __len__(self):
+        return len(self.fullname())
+
     @classmethod
     def set_raise_amt(cls, amount): # I don't think it is good practice!!
         cls.raise_amt = amount
@@ -70,6 +84,33 @@ class HTTPException(Exception):
 
 class BadRequest(HTTPException):
     pass
+
+# __len__ special method
+# print(len('test')) # 4
+# print('test'.__len__()) # 4
+# emp_1 = Employee('Judy', 'Fox', 300000)
+# print(len(emp_1)) # 8; space between first and last!
+
+# __add__ special method
+# emp_1 = Employee('Judy', 'Fox', 300000)
+# emp_2 = Employee('San', 'Diego', 250000)
+# print(emp_1 + emp_2) # 550000
+
+# print(1+2) # 3
+# print(int.__add__(1, 2)) # 3
+# print(str.__add__('a', 'b')) # 'ab'
+
+# __repr__ special method; comment out __str__
+# dev_2 = Employee('Soy', 'Milk', 50000)
+# print(dev_2) # Employee('Soy', 'Milk', '50000')
+
+#  __repr__; __str__; with both special methods
+# print(dev_2) # Soy Milk - Soy.Milk@company.com
+# print(dev_2.__repr__()) # Employee('Soy', 'Milk', '50000')
+# print(dev_2.__str__()) # Soy Milk - Soy.Milk@company.com
+# print(repr(dev_2)) # Employee('Soy', 'Milk', '50000')
+# print(str(dev_2)) # Soy Milk - Soy.Milk@company.com
+
 
 
 # dev_1 = Developer('Coco', 'Nut', 60000, 'Python')
